@@ -4,16 +4,20 @@
 
 ## Project Outline
 
-Disaster Response Pipeline Project
-Author: Inga Kuznetsova
-Project Outline
-In this project I have built up a Web application which takes input messages and direct to a particular organization that can give help. The application utilizes a ML model to classify any new messages, and the code trains model. 
-Files Description
+
+In this project I have built up a Web application which takes input messages and direct to a particular organization that can give help. The application utilizes a ML model to classify any new messages, and the code trains model.Â 
+
+*** Files Description
+
 Data .csv files, .db file and model .pkl files are excluded because of large size.
+
 Data: process_data.py: This code takes as its input csv files containing message data and message categories (labels), and creates SQLite database containing a merged and cleaned version of this data
+
 Models: This folder contains the ML pipeline (the pickle object was excluded because of size), train_classifier.py: This code takes the SQLite database produced by process_data.py as an input and uses the data contained within it to train and tune a ML model for categorizing messages. The output is a pickle file containing the fitted model. Test evaluation metrics are also printed as part of the training process.
+
 App: This folder contains run.py and templates which are used to run the main web application.
-Also 2 notebooks: ‘ETL Pipeline Preparation.ipynb’, which clean and prepare data and ‘ML Pipeline Preparation.ipynb’ which train and use models are included.
+
+Also 2 notebooks: â€˜ETL Pipeline Preparation.ipynbâ€™, which clean and prepare data and â€˜ML Pipeline Preparation.ipynbâ€™ which train and use models are included.
 
 
 ### Instructions:
@@ -31,7 +35,7 @@ Also 2 notebooks: ‘ETL Pipeline Preparation.ipynb’, which clean and prepare data
 
 ### Site Screenshot
 
-
+![alt text](https://github.com/kuzn137/Disaster-Response-Pipeline/blob/master/Screenshot_webapp.png?raw=true)
 
 ### License
 
