@@ -31,15 +31,21 @@ url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-
 import re
 from sklearn.multioutput import MultiOutputClassifier
 import numpy as np
-
 import warnings
 warnings.simplefilter('ignore')
 from sklearn.metrics import  f1_score,  accuracy_score, classification_report, fbeta_score, make_scorer
 
-def load_data(database_filepath):
-    # import libraries
+
+def load_data():
+    """Function to load data for the model.
+       Args: 
+          None
+       Returns: 
+          pd.dataframes: incoming features vector X, outcome vector Y; list: categories names
+    """
     engine = create_engine('sqlite:///./data/DisasterResponse.db')
     df = pd.read_sql("SELECT * FROM DisasterResponse", engine)
+    #exclude colums that are not needed in model
     col=[i for i in df.columns if i not in ['id','original', 'genre']]
     X = df["message"]
     Y = df.iloc[:,4:]
@@ -48,33 +54,35 @@ def load_data(database_filepath):
     return X, Y, category_names
 
 def tokenize(text):
+    """Function tokenize text.
+       Args: 
+          messages text
+       Returns: 
+         Tokens
+    """
     detected_urls = re.findall(url_regex, text)
     for url in detected_urls:
         text = text.replace(url, "urlplaceholder")
-
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
-
     clean_tokens = []
     for tok in tokens:
         clean_tok = lemmatizer.lemmatize(tok).lower().strip()
         clean_tokens.append(clean_tok)
 
     return clean_tokens
-
-
-    def fit(self, x, y=None):
-        return self
-
-    def transform(self, X):
-        X_tagged = pd.Series(X).apply(self.starting_verb)
-        return pd.DataFrame(X_tagged)
-
-
+    
 def evaluate_model(model, X_test, y_test, category_names):
+    """Function to print model evalution scores, comparing real test data and predicted
+         Args: 
+           model, incoming features dataframe X_test, test labeles dataframe y_test, list of category names
+         Returns:     
+           None
+    """
     y_pred = model.predict(X_test)
     labels = np.unique(y_pred)
     print(labels)
+    #print out score for each class and mean scores, including precision, recall, f1 score
     print(classification_report(y_test.values, y_pred, target_names=category_names.values))
 
 def build_model():
@@ -99,7 +107,15 @@ def build_model():
     return cv
    
 
+    
+
 def save_model(model, model_filepath):
+    """Function saves model to pickle file.
+         Args: 
+           model, path where to save model
+         Returns:     
+           None
+    """
     pickle.dump(model, open(model_filepath, 'wb'))
 
 

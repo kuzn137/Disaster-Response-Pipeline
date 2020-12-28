@@ -15,6 +15,13 @@ from sqlalchemy import create_engine
 app = Flask(__name__)
 
 def tokenize(text):
+    """Function tokenize text.
+		Args: 
+			messages text
+		
+		Returns: 
+			Tokens
+		"""
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
@@ -37,7 +44,12 @@ model = joblib.load("../models/classifier.pkl")
 @app.route('/')
 @app.route('/index')
 def index():
-    
+    """Function creates template with graphs.
+        Args: 
+         None
+        Returns: 
+            template with graphs
+    """
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
@@ -51,6 +63,8 @@ def index():
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
+    #First graph shows percentage of messages in 20 top categories
+    #Second graph shows genre distribution
     graphs = [
         
         {
@@ -101,6 +115,12 @@ def index():
 # web page that handles user query and displays model results
 @app.route('/go')
 def go():
+    """Function creates template that handels user queries.
+         Args: 
+           None
+         Returns: 
+           template that handels user queries.
+    """
     # save user input in query
     query = request.args.get('query', '') 
 

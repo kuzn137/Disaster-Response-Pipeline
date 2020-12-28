@@ -3,6 +3,13 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
+    """Function to load data.
+       Args: 
+         path to data .csv file with messages, path to data .csv file with categories
+       Returns: 
+         pd.dataframe with messages and categories
+    """
+    https://www.linkedin.com/in/inga-kuznetsova-a0b8b521/
     # load messages dataset
     messages = pd.read_csv('./data/disaster_messages.csv')
     # load categories dataset
@@ -15,6 +22,12 @@ def load_data(messages_filepath, categories_filepath):
     return df
 
 def clean_data(df):
+    """Function to clean data for the model.
+       Args: 
+          pd data frame
+       Returns: 
+          cleaned pd.dataframe
+    """
     # ### 3. Split `categories` into separate category columns.
     # - Split the values in the `categories` column on the `;` character so that each value becomes a separate column. You'll find [this method]      (https://pandas.pydata.org/pandas-docs/version/0.23/generated/pandas.Series.str.split.html) very helpful! Make sure to set `expand=True`.
     # - Use the first row of categories dataframe to create column names for the categories data.
@@ -47,8 +60,15 @@ def clean_data(df):
     return df
     
 
-def save_data(df, database_filename):
+def save_data(df):
+    """Function to save data to database.
+       Args: 
+         pd dataframe
+       Returns: 
+         None
+    """
     engine = create_engine('sqlite:///./data/DisasterResponse.db')
+    #saves data to sql database
     df.to_sql('DisasterResponse', engine, index=False)
 
 
