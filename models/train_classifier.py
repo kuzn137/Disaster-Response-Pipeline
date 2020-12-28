@@ -35,11 +35,11 @@ import warnings
 warnings.simplefilter('ignore')
 from sklearn.metrics import  f1_score,  accuracy_score, classification_report, fbeta_score, make_scorer
 
-
-def load_data():
+#database_filepath = 'sqlite:///./data/DisasterResponse.db'
+def load_data(database_filepath):
     """Function to load data for the model.
        Args: 
-          None
+          database_path
        Returns: 
           pd.dataframes: incoming features vector X, outcome vector Y; list: categories names
     """
