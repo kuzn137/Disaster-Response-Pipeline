@@ -35,7 +35,7 @@ import warnings
 warnings.simplefilter('ignore')
 from sklearn.metrics import  f1_score,  accuracy_score, classification_report, fbeta_score, make_scorer
 
-#database_filepath = 'sqlite:///./data/DisasterResponse.db'
+database_filepath = './data/DisasterResponse.db'
 def load_data(database_filepath):
     """Function to load data for the model.
        Args: 
@@ -43,7 +43,7 @@ def load_data(database_filepath):
        Returns: 
           pd.dataframes: incoming features vector X, outcome vector Y; list: categories names
     """
-    engine = create_engine('sqlite:///./data/DisasterResponse.db')
+    engine = create_engine('sqlite:///'+ database_filepath)
     df = pd.read_sql("SELECT * FROM DisasterResponse", engine)
     #exclude colums that are not needed in model
     col=[i for i in df.columns if i not in ['id','original', 'genre']]
